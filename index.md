@@ -6,5 +6,4 @@
 
 layout: page
 ---
-# Peter Bucher's Website
 under construction
