@@ -1,6 +1,6 @@
 ---
 layout: home
-title: News
+title:  News 
 permalink: /news/
 ---
 layout: home
