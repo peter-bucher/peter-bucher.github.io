@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About Theme Minima
+title:  About Theme Minima
 permalink: /about/
 ---
 
