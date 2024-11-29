@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - source
+#      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2.1'
+        bundler-cache: true
+    - name: Install deps
+      run: |
+        npm ci
+    - name: Build site
+      env:
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        READ_TOKEN: ${{ secrets.READ_TOKEN }}
+      run: |
+        npm run tinacms build && bundle exec jekyll build
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      env:
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        READ_TOKEN: ${{ secrets.READ_TOKEN }}
+      with:
+        folder: _site
